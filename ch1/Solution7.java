@@ -4,8 +4,7 @@ Programmer: Prabh Simran Singh (prabhsis@andrew.cmu.edu)
 Course/Section: 11-601
 Assignment: Homework1 - 7
 Description: Rotate N*N matrix by 90 degrees , in place.
-Assumptions: 1. Character set is ASCII ( 128 character set)
-			 2. String has only upper and lowercase letters (a-z)
+Assumptions:
 Time Complexity: O(n2)
 Space Complexity: O(n)
 Last Modified: 9/20/2014 
