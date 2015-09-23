@@ -2,76 +2,95 @@
 This file: Solution2.java
 Programmer: Prabh Simran Singh (prabhsis@andrew.cmu.edu)
 Course/Section: 11-601
-Assignment: Chapter3 - 1
-Description: Creating a binary search tree with minimal height
+Assignment: Chapter3 - 2
+Description: Stack with a function min which returns the minimum element
 Assumption: 
 Last Modified: 9/22/2014 
  */
-package _42;
 
-public class Solution2 {
+package _32;
+
+import java.util.EmptyStackException;
+//using additional stack to take care of the mins
+public class Solution2 extends Stack<Integer> {
+	Stack<Integer> mins;
+
+	public Solution2()
+	{
+		mins=new Stack<Integer>();
+	}
+
+	public void push(int val) {
+		if (val <= min()) {
+			mins.push(val);
+		}
+		super.push(val);
+	}
+
+	public Integer pop() {
+		int val = super.pop();
+		if (val == min()) {
+			mins.pop();
+		}
+		return val;
+	}
+	//min function is called on each pop and push and stores min values
+	public int min() {
+		if (mins.isEmpty()) {
+			return Integer.MAX_VALUE;
+		} else {
+			return mins.peek();
+		}
+	}
+
 	public static void main(String[] args) {
-		int[] array = { 3, 4, 5, 6, 7, 8, 9 };
+		Solution2 stack = new Solution2();
+		stack.push(2);
+		stack.push(2);
+		stack.push(3);
+		stack.push(-1);
+		stack.push(0);
+		System.out.println(stack.min());
 
-		Tree root = createMinimalBST(array);
-		System.out.println("Root " + root.val);
-		System.out.println("Height " + root.height());
 	}
 
-	private static Tree createMinimalBST(int arr[], int start, int end) {
-		if (end < start) {
-			return null;
-		}
-		
-	//Recursive solution which calls the method with smaller sub tree
-		//Middle element becomes root of this sub tree
-		int mid = (start + end) / 2;
-		Tree n = new Tree(arr[mid]);
-		//Insert left subarray into left subtree
-		n.setLeftChild(createMinimalBST(arr, start, mid - 1));
-		//Insert right subarray into right subtree
-		n.setRightChild(createMinimalBST(arr, mid + 1, end));
-		return n;
-	}
-
-	public static Tree createMinimalBST(int array[]) {
-		return createMinimalBST(array, 0, array.length - 1);
-	}
 }
+//Normal stack class
+class Stack<T> {
+	private static class StackNode<T> {
+		private T data;
+		private StackNode<T> next;
 
-// Binary Tree Node
-class Tree {
-	int val;
-	Tree left;
-	Tree right;
-	Tree parent;
-	int size = 0;
-
-	//Constructor
-	Tree(int d) {
-		val = d;
-		size = 1;
-	}
-
-	//calculate height recursively adding one for each level
-	public int height() {
-		int leftHeight = left != null ? left.height() : 0;
-		int rightHeight = right != null ? right.height() : 0;
-		return 1 + Math.max(leftHeight, rightHeight);
-	}
-
-	public void setLeftChild(Tree left) {
-		this.left = left;
-		if (left != null) {
-			left.parent = this;
+		public StackNode(T data) {
+			this.data = data;
 		}
 	}
 
-	public void setRightChild(Tree right) {
-		this.right = right;
-		if (right != null) {
-			right.parent = this;
-		}
+	private StackNode<T> top;
+
+	public T pop() {
+		if (top == null)
+			throw new EmptyStackException();
+
+		T item = top.data;
+		top = top.next;
+		return item;
+
 	}
 
+	public void push(T item) {
+		StackNode<T> t = new StackNode<T>(item);
+		t.next = top;
+		top = t;
+	}
+
+	public T peek() {
+		if (top == null)
+			throw new EmptyStackException();
+		return top.data;
+	}
+
+	public boolean isEmpty() {
+		return top == null;
+	}
 }
