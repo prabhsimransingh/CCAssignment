@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
+//Followed the algorithm in CTCI as the problem was conceptually very hard to solve.
 public class Solution7 {
 	public static void main(String[] args) {
 		//Adding projects and there dependencies
