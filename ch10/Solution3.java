@@ -5,7 +5,7 @@ Programmer: Prabh Simran Singh (prabhsis@andrew.cmu.edu)
 Course/Section: 11-601
 Assignment: Chapter10 - 3
 Description: Given a sorted array that has been rotated, find an element in the array
-Assumption: 
+Assumption: Array was originally sorted in ascending order
 Time Complexity: O(logn)
 Space Complexity: O(1)
 Last Modified: 9/30/2015 
