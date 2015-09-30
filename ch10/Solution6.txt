@@ -1,0 +1,3 @@
+To sort a big file of 20GB we can divide the file into smaller chunks and then sort them and then combine them to form a sorted file.
+We can go on the lines of distributed computing and map & reduce to sort the files as well.
+As mentioned in the book breaking the file into smaller chunks and sorting is referred to as External sort.
