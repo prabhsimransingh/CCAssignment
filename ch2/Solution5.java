@@ -39,6 +39,31 @@ public class Solution5 {
 
 	}
 
+	// Original Solution, Recursive in nature
+	private static Node addLists(Node n1, Node n2, int carry) {
+		if (n1 == null && n2 == null && carry == 0) {
+			return null;
+		}
+
+		Node result = new Node();
+		int value = carry;
+		if (n1 != null) {
+
+			value += n1.data;
+		}
+		if (n2 != null) {
+			value += n2.data;
+		}
+		result.data = value % 10;
+		if (n1 != null || n2 != null) {
+			Node more = addLists(n1 == null ? null : n1.next, n2 == null ? null : n2.next, value >= 10 ? 1 : 0);
+			result.next = more;
+		}
+		return result;
+	}
+
+	// Follow up question if list is reversed. Solution remains the same, but we
+	// have to account for change in length
 	public static Node SumLists(Node n1, Node n2) {
 		// Kept array list to keep number
 		ArrayList<Integer> a = new ArrayList<Integer>();
@@ -117,4 +142,5 @@ class Node {
 		}
 		System.out.println(n.data);
 	}
+
 }
