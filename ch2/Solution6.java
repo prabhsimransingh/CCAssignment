@@ -10,6 +10,8 @@ Last Modified: 9/20/2014
 
 package _26;
 
+import java.util.Stack;
+
 public class Solution6 {
 	public static void main(String[] args) {
 
@@ -27,9 +29,15 @@ public class Solution6 {
 		// Print Original list
 		System.out.println("Input List");
 		n0.PrintList();
-		// Print List after delete
+
 		System.out.println("\nChecking for palindrome");
 		System.out.println(checkPalindrome(n0));
+		// Solution 2
+		System.out.println(iterPalindrome(n0));
+		// Solution 3 _ Recursive solution compare node i to node n-i
+		// we can use a recursive method which calls itself and reduces the list
+		// each time so you always check
+		// the i th and n-i element which is at the head and tail resp.
 
 	}
 
@@ -63,6 +71,36 @@ public class Solution6 {
 
 		return true;
 	}
+
+	// Solution 2 _ Iterative approach we will use a stack to reverse the list
+	public static boolean iterPalindrome(Node head) {
+		Node fast = head;
+		Node slow = head;
+
+		Stack<Integer> stck = new Stack<Integer>();
+		// Push first half of list elements onto the stack
+		while (fast != null && fast.next != null) {
+			stck.push(slow.data);
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+
+		// For odd number of elements
+		if (fast != null) {
+			slow = slow.next;
+		}
+
+		while (slow != null) {
+			// Compare stack elements to latter half of list
+			int elem = stck.pop();
+			if (elem != slow.data) {
+				return false;
+			}
+			slow = slow.next;
+		}
+		return true;
+
+	}
 }
 
 // Linked List class
@@ -87,4 +125,5 @@ class Node {
 		}
 		System.out.print(n.data);
 	}
+
 }
