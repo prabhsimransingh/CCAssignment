@@ -15,6 +15,7 @@ public class Solution1 {
 	public static void main(String[] args) {
 		// Input String
 		String test = "abcdee";
+		System.out.println(checkUnique(test));
 		// If character length is greater than 128 than it cannot be unique
 		if (test.length() > 128) {
 			System.out.println("Repeating characters");
@@ -34,6 +35,21 @@ public class Solution1 {
 			}
 		}
 		System.out.println("No Repeating Characters");
+
+	}
+
+	// Solution 2 - to save space we make the use of a bit vector
+	public static boolean checkUnique(String str) {
+
+		int checker = 0;
+		//int bit vector where each bit represents a character
+		for (int i = 0; i < str.length(); i++) {
+			int val = str.charAt(i) - 'a';
+			if ((checker & (1 << val)) > 0)
+				return false;
+			checker |= (1 << val);
+		}
+		return true;
 
 	}
 
